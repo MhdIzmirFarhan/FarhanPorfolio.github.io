@@ -19,20 +19,18 @@ Please change the parent <Route path="${L}"> to <Route path="${L==="/"?"*":`${L}
     `},{id:"education",tag:"02 / ACADEMIC",title:"Education",content:`
       <div class="panel-body">
         <div class="edu-item">
-          <div class="edu-year">2020 – 2024</div>
+          <div class="edu-year">2022 – 2025</div>
           <div class="edu-info">
             <h4>Bachelor of Computer Science</h4>
-            <p>Universiti Teknologi MARA (UiTM)</p>
-            <p class="edu-detail">Specialisation in Software Engineering · CGPA 3.XX</p>
+            <p>Managment And Science University (MSU)</p>
           </div>
         </div>
         <div class="edu-divider" />
         <div class="edu-item">
-          <div class="edu-year">2018 – 2020</div>
+          <div class="edu-year">2021 – 2022</div>
           <div class="edu-info">
-            <h4>Diploma in Computer Science</h4>
-            <p>Universiti Teknologi MARA (UiTM)</p>
-            <p class="edu-detail">Foundation in programming & systems</p>
+            <h4>Foundation in Information & Technology</h4>
+            <p>Managment And Science University (MSU)</p>
           </div>
         </div>
       </div>
