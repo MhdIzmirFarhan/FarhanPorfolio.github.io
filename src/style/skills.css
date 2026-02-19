@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap');
+
+:root {
+  --bg:       #0a0a0c;
+  --surface:  #13131a;
+  --border:   #1e1e2e;
+  --accent:   #00ffc8;
+  --muted:    #444466;
+  --text:     #c8c8e0;
+  --text-dim: #5a5a7a;
+  --mono:     'Space Mono', monospace;
+  --display:  'Syne', sans-serif;
+  --glow:     0 0 20px rgba(0,255,200,0.12), 0 0 60px rgba(0,255,200,0.04);
+}
+
+/* ── SECTION ── */
+.skills-section {
+  position: relative;
+  padding: 6rem 0 5rem;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  font-family: var(--mono);
+}
+
+/* ── BG ── */
+.skills-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,255,200,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,200,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+.skills-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px, transparent 3px,
+    rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+.skills-section > *:not(.skills-grid-bg):not(.skills-scanlines) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── HEADER ── */
+.skills-header {
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 0 2rem;
+}
+
+.skills-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  opacity: 0.7;
+  margin-bottom: 0.75rem;
+}
+
+.skills-title {
+  font-family: var(--display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 1rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.skills-accent {
+  color: var(--accent);
+  text-shadow: var(--glow);
+}
+
+.skills-title-line {
+  width: 48px;
+  height: 2px;
+  background: var(--accent);
+  margin: 0 auto;
+  box-shadow: var(--glow);
+}
+
+/* ── SCROLL HINT ── */
+.skills-scroll-hint {
+  text-align: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  margin: 1.5rem 0 2rem;
+}
+
+/* ── TRACK ── */
+.skills-track {
+  display: flex;
+  gap: 1.25rem;
+  width: max-content;
+  padding-bottom: 0.5rem;
+  margin: 0 auto;
+}
+.skills-scroll-container::-webkit-scrollbar { display: none; }
+.skills-scroll-container:active { cursor: grabbing; }
+
+/* ── TRACK ── */
+.skills-track {
+  display: flex;
+  gap: 1.25rem;
+  width: max-content;
+  padding-bottom: 0.5rem;
+}
+
+/* ── CARD ── */
+.skill-group-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2rem 1.75rem 1.75rem;
+  min-width: 260px;
+  max-width: 260px;
+  flex-shrink: 0;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  will-change: opacity, transform;
+}
+.skill-group-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+}
+
+/* ── CORNER BRACKETS ── */
+.sk-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.skill-group-card:hover .sk-corner { opacity: 1; }
+.sk-corner.tl { top: 8px;    left: 8px;   border-top: 1px solid var(--accent); border-left: 1px solid var(--accent); }
+.sk-corner.tr { top: 8px;    right: 8px;  border-top: 1px solid var(--accent); border-right: 1px solid var(--accent); }
+.sk-corner.bl { bottom: 8px; left: 8px;   border-bottom: 1px solid var(--accent); border-left: 1px solid var(--accent); }
+.sk-corner.br { bottom: 8px; right: 8px;  border-bottom: 1px solid var(--accent); border-right: 1px solid var(--accent); }
+
+/* ── CARD TAG ── */
+.skill-card-tag {
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  opacity: 0.6;
+  margin-bottom: 0.5rem;
+}
+
+/* ── CARD TITLE ── */
+.skill-card-title {
+  font-family: var(--display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.3;
+}
+
+/* ── SKILL ITEMS ── */
+.skill-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.skill-icon {
+  font-size: 1.1rem;
+  color: var(--accent);
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.skill-name {
+  font-size: 0.75rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+/* ── DOTS ── */
+.skills-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.skills-dot {
+  width: 20px;
+  height: 2px;
+  background: var(--border);
+  border-radius: 1px;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .skills-scroll-container {
+    overflow-x: scroll;
+    overflow-y: visible;
+    padding: 1rem 3rem 2rem;
+    cursor: grab;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch; /* important for mobile */
+  }
+  .skills-track {
+    display: flex;
+    gap: 1.25rem;
+    width: max-content; /* this is critical — forces scrollable width */
+    padding-right: 3rem;
+  }
+}

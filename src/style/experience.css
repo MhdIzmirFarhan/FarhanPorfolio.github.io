@@ -1,0 +1,329 @@
+/* ── TOKENS (match DgSailor) ── */
+:root {
+  --bg:        #0a0a0c;
+  --bg2:       #0f0f12;
+  --surface:   #13131a;
+  --border:    #1e1e2e;
+  --accent:    #00ffc8;
+  --accent2:   #7b6cff;
+  --muted:     #444466;
+  --text:      #c8c8e0;
+  --text-dim:  #5a5a7a;
+  --mono:      'Space Mono', monospace;
+  --display:   'Syne', sans-serif;
+  --glow:      0 0 20px rgba(0,255,200,0.12), 0 0 60px rgba(0,255,200,0.04);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap');
+
+/* ── SECTION ── */
+.exp-section {
+  position: relative;
+  padding: 6rem 2rem 5rem;
+  background: var(--bg);
+  color: var(--text);
+  text-align: center;
+  overflow: hidden;
+  font-family: var(--mono);
+}
+
+/* ── BG DECORATIONS ── */
+.exp-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,255,200,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,200,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+.exp-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px, transparent 3px,
+    rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* all content above bg */
+.exp-section > *:not(.exp-grid-bg):not(.exp-scanlines) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── HEADER ── */
+.exp-header {
+  margin-bottom: 3.5rem;
+}
+
+.exp-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  opacity: 0.7;
+  margin-bottom: 0.75rem;
+}
+
+.exp-title {
+  font-family: var(--display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 1rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.exp-accent {
+  color: var(--accent);
+  text-shadow: var(--glow);
+}
+
+.exp-title-line {
+  width: 48px;
+  height: 2px;
+  background: var(--accent);
+  margin: 0 auto;
+  box-shadow: var(--glow);
+}
+
+/* ── CAROUSEL WRAPPER ── */
+.exp-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* ── ARROWS ── */
+.exp-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--accent);
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  z-index: 5;
+}
+.exp-arrow:hover {
+  border-color: var(--accent);
+  background: rgba(0,255,200,0.06);
+  box-shadow: var(--glow);
+}
+
+/* ── CONTAINER ── */
+.exp-container {
+  position: relative;
+  width: 360px;
+  height: 480px;
+}
+
+/* ── BASE CARD ── */
+.exp-card {
+  position: absolute;
+  width: 320px;
+  height: 460px;
+  border-radius: 6px;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s cubic-bezier(0.77,0,0.18,1), opacity 0.6s ease;
+  opacity: 0;
+  transform: scale(0.85);
+  z-index: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.exp-card.active {
+  transform: translateZ(0) scale(1.05);
+  opacity: 1;
+  z-index: 3;
+  border-color: var(--accent);
+  box-shadow: var(--glow), 0 20px 60px rgba(0,0,0,0.7);
+}
+.exp-card.left {
+  transform: translateX(-220px) scale(0.9);
+  opacity: 0.45;
+  z-index: 2;
+}
+.exp-card.right {
+  transform: translateX(220px) scale(0.9);
+  opacity: 0.45;
+  z-index: 2;
+}
+.exp-card.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── OVERLAY ── */
+.exp-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10,10,12,0.3) 0%,
+    rgba(10,10,12,0.95) 100%
+  );
+}
+
+/* ── CORNER BRACKETS ── */
+.exp-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  z-index: 3;
+}
+.exp-corner.tl { top: 10px;    left: 10px;   border-top: 1px solid var(--accent); border-left: 1px solid var(--accent); }
+.exp-corner.tr { top: 10px;    right: 10px;  border-top: 1px solid var(--accent); border-right: 1px solid var(--accent); }
+.exp-corner.bl { bottom: 10px; left: 10px;   border-bottom: 1px solid var(--accent); border-left: 1px solid var(--accent); }
+.exp-corner.br { bottom: 10px; right: 10px;  border-bottom: 1px solid var(--accent); border-right: 1px solid var(--accent); }
+
+/* ── TAG ── */
+.exp-card-tag {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  opacity: 0.7;
+  z-index: 3;
+  background: rgba(10,10,12,0.6);
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+/* ── LOGO ── */
+.exp-logo {
+  position: absolute;
+  top: 2.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.exp-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+}
+
+/* ── CONTENT ── */
+.exp-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.25rem;
+  z-index: 2;
+  text-align: left;
+  max-height: 65%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted) transparent;
+}
+
+.exp-company {
+  font-family: var(--display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.25rem;
+}
+
+.exp-role {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin: 0 0 0.75rem;
+}
+
+.exp-content ul {
+  padding-left: 1rem;
+  margin: 0 0 0.75rem;
+}
+.exp-content li {
+  font-size: 0.72rem;
+  line-height: 1.6;
+  margin-bottom: 0.35rem;
+  color: var(--text);
+}
+
+/* ── READ MORE ── */
+.exp-read-more {
+  display: inline-block;
+  margin-top: 0.25rem;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.75rem;
+  border-radius: 2px;
+  transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.exp-read-more:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+}
+
+/* ── DOTS ── */
+.exp-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2.5rem;
+}
+.exp-dot {
+  width: 20px;
+  height: 2px;
+  background: var(--border);
+  border: none;
+  border-radius: 1px;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s, width 0.3s;
+}
+.exp-dot.active {
+  background: var(--accent);
+  width: 36px;
+  box-shadow: var(--glow);
+}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .exp-container {
+    width: 90vw;
+    height: 440px;
+  }
+  .exp-card {
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%) scale(1);
+  }
+  .exp-card.left,
+  .exp-card.right { display: none; }
+  .exp-arrow { display: none; }
+}

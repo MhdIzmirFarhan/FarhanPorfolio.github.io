@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  font-family: 'Space Mono', monospace;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #c8c8e0;
+  background-color: var(--bg-color, #0a0a0c);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 400;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #5a5a7a;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  color: #00ffc8;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 320px;
+  background-color: var(--bg-color, #0a0a0c);
+  color: var(--text-color, #c8c8e0);
+}
+
+/* Headings */
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+/* Buttons */
+button {
+  border-radius: 3px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 0.72rem;
+  font-weight: 400;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.12em;
+  background-color: #13131a;
+  color: #c8c8e0;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+button:hover {
+  border-color: #00ffc8;
+  color: #00ffc8;
+}
+button:focus,
+button:focus-visible {
+  outline: 2px solid #00ffc8;
+  outline-offset: 2px;
+}
+
+/* Light mode — kept dark intentionally to match theme */
+@media (prefers-color-scheme: light) {
+  :root {
+    --text-color: #c8c8e0;
+    --bg-color: #0a0a0c;
+  }
+  a:hover {
+    color: #00ffc8;
+  }
+  button {
+    background-color: #13131a;
+  }
+}

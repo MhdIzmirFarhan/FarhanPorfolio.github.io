@@ -1,0 +1,471 @@
+/* ── IMPORTS ── */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800&display=swap');
+
+/* ── TOKENS ── */
+:root {
+  --bg:        #0a0a0c;
+  --bg2:       #0f0f12;
+  --surface:   #13131a;
+  --border:    #1e1e2e;
+  --accent:    #00ffc8;
+  --accent2:   #7b6cff;
+  --muted:     #444466;
+  --text:      #c8c8e0;
+  --text-dim:  #5a5a7a;
+  --mono:      'Space Mono', monospace;
+  --display:   'Syne', sans-serif;
+  --radius:    4px;
+  --glow:      0 0 20px rgba(0,255,200,0.12), 0 0 60px rgba(0,255,200,0.04);
+  --glow-card: 0 0 0 1px var(--border), 0 8px 40px rgba(0,0,0,0.6);
+}
+
+/* ── BASE ── */
+.dg-page {
+  position: relative;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  padding: 0 0 6rem;
+  overflow-x: hidden;
+}
+
+/* ── GRID BG ── */
+.dg-grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(0,255,200,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,200,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* ── SCANLINES ── */
+.dg-scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,0.08) 3px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+}
+
+/* all sections above bg */
+.dg-page > *:not(.dg-grid-bg):not(.dg-scanlines) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── SECTION LABEL ── */
+.dg-section-label,
+.dg-hero-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  opacity: 0.7;
+}
+
+/* ── HERO ── */
+.dg-hero {
+  padding: 5rem 3rem 3.5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+}
+
+.dg-hero-title {
+  font-family: var(--display);
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0 0 1rem;
+}
+
+.dg-accent {
+  color: var(--accent);
+  text-shadow: var(--glow);
+}
+
+.dg-hero-sub {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  margin: 0 0 1.5rem;
+}
+
+.dg-hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  flex-wrap: wrap;
+}
+
+.dg-sep { color: var(--accent); opacity: 0.4; }
+
+.dg-hero-line {
+  width: 60px;
+  height: 2px;
+  background: var(--accent);
+  margin-top: 2rem;
+  box-shadow: var(--glow);
+}
+
+/* ── MEDIA ── */
+.dg-media {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 3.5rem 3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.dg-slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dg-slider-viewport {
+  flex: 1;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  position: relative;
+}
+
+/* corner bracket decoration on viewport */
+.dg-slider-viewport::before,
+.dg-slider-viewport::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  z-index: 2;
+  pointer-events: none;
+}
+.dg-slider-viewport::before {
+  top: 0; left: 0;
+  border-top: 2px solid var(--accent);
+  border-left: 2px solid var(--accent);
+}
+.dg-slider-viewport::after {
+  bottom: 0; right: 0;
+  border-bottom: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+}
+
+.dg-slider-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+.dg-slide {
+  flex-shrink: 0;
+  width: 100%;
+  position: relative;
+}
+
+.dg-slide img {
+  width: 100%;
+  height: 430px;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.9) saturate(0.85);
+}
+
+.dg-slide-overlay {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  background: rgba(10,10,12,0.75);
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+}
+
+.dg-slide-num {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+}
+
+/* arrows */
+.dg-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--accent);
+  border-radius: var(--radius);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.dg-arrow:hover {
+  border-color: var(--accent);
+  background: rgba(0,255,200,0.06);
+  box-shadow: var(--glow);
+}
+
+/* dots */
+.dg-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.dg-dot {
+  width: 20px;
+  height: 2px;
+  background: var(--border);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, width 0.3s;
+  padding: 0;
+  border-radius: 1px;
+}
+.dg-dot.active {
+  background: var(--accent);
+  width: 36px;
+  box-shadow: var(--glow);
+}
+
+/* ── CARDS ── */
+.dg-cards-section {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 3.5rem 3rem 0;
+}
+
+.dg-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.dg-card {
+  position: relative;
+  background: var(--surface);
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  padding: 2rem 1.75rem 1.75rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 180px;
+  transition: background 0.25s;
+  animation: dg-fadeup 0.5s ease both;
+  animation-delay: var(--delay, 0s);
+}
+
+.dg-card:hover {
+  background: #16161f;
+}
+
+/* corner brackets */
+.dg-card-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.dg-card:hover .dg-card-corner { opacity: 1; }
+.dg-card-corner.tl { top: 8px; left: 8px;   border-top: 1px solid var(--accent); border-left: 1px solid var(--accent); }
+.dg-card-corner.tr { top: 8px; right: 8px;  border-top: 1px solid var(--accent); border-right: 1px solid var(--accent); }
+.dg-card-corner.bl { bottom: 8px; left: 8px;  border-bottom: 1px solid var(--accent); border-left: 1px solid var(--accent); }
+.dg-card-corner.br { bottom: 8px; right: 8px; border-bottom: 1px solid var(--accent); border-right: 1px solid var(--accent); }
+
+.dg-card-tag {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  opacity: 0.6;
+  text-transform: uppercase;
+}
+
+.dg-card-title {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  line-height: 1.3;
+  flex: 1;
+}
+
+.dg-card-cta {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  transition: color 0.2s;
+  margin-top: auto;
+}
+.dg-card:hover .dg-card-cta {
+  color: var(--accent);
+}
+
+/* ── DIALOG / MODAL ── */
+#layout-dialog {
+  --overlay-alpha: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: 100%;
+  max-height: 100%;
+  border: none;
+  background: transparent;
+  pointer-events: none;
+  background-color: color-mix(in srgb, #000, transparent var(--overlay-alpha));
+  overflow: hidden;
+}
+#layout-dialog[open] {
+  --overlay-alpha: 55%;
+  pointer-events: auto;
+}
+#layout-dialog::backdrop { background: transparent; }
+
+/* expanded card */
+#layout-dialog .modal-card {
+  visibility: hidden;
+  background: var(--bg2);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: var(--glow), 0 24px 80px rgba(0,0,0,0.8);
+  width: min(540px, 92vw);
+  max-height: 80dvh;
+  overflow-y: auto;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted) transparent;
+}
+#layout-dialog[open] .modal-card { visibility: visible; }
+
+.modal-tag {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  opacity: 0.7;
+}
+
+#layout-dialog .modal-card h2 {
+  font-family: var(--display);
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  will-change: font-size;
+  line-height: 1.2;
+}
+
+.modal-body {
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: var(--text);
+}
+.modal-body p { margin: 0 0 0.75rem; }
+.modal-body ul { padding-left: 1.2rem; margin: 0.5rem 0 0; }
+.modal-body li { margin-bottom: 0.5rem; }
+
+.modal-close {
+  align-self: flex-end;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  background: none;
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.8rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.modal-close:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ── BACK ── */
+.dg-back {
+  max-width: 860px;
+  margin: 3.5rem auto 0;
+  padding: 0 3rem;
+}
+
+.dg-back-btn {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius);
+  display: inline-block;
+  transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.dg-back-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+}
+
+/* ── ANIMATION ── */
+@keyframes dg-fadeup {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .dg-hero { padding: 3.5rem 1.5rem 2.5rem; }
+  .dg-media { padding: 2.5rem 1.5rem; }
+  .dg-cards-section { padding: 2.5rem 1.5rem 0; }
+  .dg-back { padding: 0 1.5rem; }
+
+  .dg-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .dg-slide img { height: 220px; }
+
+  .dg-hero-title { font-size: 3rem; }
+}
